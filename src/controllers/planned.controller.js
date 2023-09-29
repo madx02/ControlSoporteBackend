@@ -100,9 +100,7 @@ const plannedPut = async (req = request, res = response) => {
         const id = req.params.id;
 
         const { _id, ...resto } = req.body;
-        console.log(resto);
         const dato = await Planned.findByIdAndUpdate(id, resto);
-
         const resp = await Planned.findById(id);
         res.status(200).json({
             codigo: 0,

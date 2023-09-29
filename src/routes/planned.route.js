@@ -6,7 +6,7 @@ const { validarJWT }  = require('../middlewares/validarJWT')
 const router = Router();
 
 router.get('/', [
-    //validarJWT
+    validarJWT
 ], plannedGet);
 
 //metodo de creacion
@@ -21,7 +21,7 @@ router.post('/', [
 
 //metodo de actualizacion
 router.put('/:id', [
-    //validarJWT
+    validarJWT
 ], plannedPut);
 
 

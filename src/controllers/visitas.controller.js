@@ -1,6 +1,9 @@
 const { response } = require('express');
 const { isValidObjectId, Mongoose } = require('mongoose');
 const Visita = require('../models/visita');
+const Planned = require('../models/planned');
+const Usuario = require('../models/usuario');
+const Cliente = require('../models/cliente');
 
 
 
@@ -48,10 +51,16 @@ const visitaPost = async (req = request, res = response) => {
         const prefijo = process.env.PREFIJO_VISITA;
         const tamanio = process.env.TAMANIO_MAXIMO_CORRELATIVO;
         const newCodigo = prefijo + newSecuencia.toString().padStart(tamanio, 0);
-        
+        const plannedDatos = await Planned.findById(req.body.planned);
+        const usuario = await Usuario.findById(plannedDatos.usuario);
+        const cliente = await Cliente.findById(plannedDatos.cliente);
         const { idVisita = newCodigo, 
-                idPlanned,
+                idPlanned = plannedDatos.idPlanned,
                 planned,
+                usuario_name = usuario.nombres.concat(' ', usuario.apellidos),
+                idCliente = cliente.idCliente,
+                cliente_name = cliente.nombreComercial,
+                ubicacion = cliente.mapa,
                 fecha_inicio,
                 fecha_fin,
                 descripcion, 
@@ -69,6 +78,10 @@ const visitaPost = async (req = request, res = response) => {
         const dato = new Visita({ idVisita, 
                                         idPlanned, 
                                         planned, 
+                                        usuario_name,
+                                        idCliente,
+                                        cliente_name,
+                                        ubicacion,
                                         fecha_inicio, 
                                         fecha_fin,
                                         descripcion,

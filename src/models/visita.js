@@ -17,6 +17,18 @@ const VisitaSchema = Schema({
         ref: Planned,
         required: true
     },
+    usuario_name: {
+        type: String
+    },
+    idCliente : {
+        type: String
+    },
+    cliente_name: {
+        type: String
+    },
+    ubicacion: {
+        type: String
+    }, 
     fecha_inicio: {
         type: Date
     },
