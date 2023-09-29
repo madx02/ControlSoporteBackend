@@ -1,5 +1,7 @@
 const { response } = require('express');
 const UsuarioRoles = require('../models/usuarios-roles');
+const Usuario = require('../models/usuario');
+const RolePermiso = require('../models/roles-permisos')
 
 const usuarioRolesGet = async (req = request, res = response) => {
     try {
@@ -15,6 +17,36 @@ const usuarioRolesGet = async (req = request, res = response) => {
             msg: 'Consulta realizada con exito',
             totalRegistros,
             datos
+        });
+    } catch (error) {
+        res.status(500).json({
+            codigo: 2,
+            msg: 'Error al obtener los datos',
+            error
+        });
+    }
+
+}
+
+const usuarioRolesGetId = async (req = request, res = response) => {
+    try {
+        
+        const id = req.params.id;
+        const queryUser = { usuario : id }
+        const userRoles = await UsuarioRoles.find(queryUser).populate('usuario').populate('role');
+        const queryRole = { role : userRoles[0].role._id }
+        const rolesPermiso = await RolePermiso.find(queryRole).populate('permiso');
+
+        const respuest = {
+            usuario: userRoles[0].usuario,
+            role: userRoles[0].role,
+            rolesPermiso
+        }
+        
+        res.status(200).json({
+            codigo: 0,
+            msg: 'Consulta realizada con exito',
+            respuest
         });
     } catch (error) {
         res.status(500).json({
@@ -101,6 +133,7 @@ const usuarioRolesDel = async (req = request, res = response) => {
 
 module.exports = {
     usuarioRolesGet,
+    usuarioRolesGetId,
     usuarioRolesPost,
     usuarioRolesPut,
     usuarioRolesDel

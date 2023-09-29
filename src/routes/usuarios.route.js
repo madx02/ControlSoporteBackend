@@ -5,6 +5,7 @@ const router = Router();
 
 router.get('/', usuariosGet);
 
+
 //metodo de creacion
 router.post('/', usuariosPost);
 

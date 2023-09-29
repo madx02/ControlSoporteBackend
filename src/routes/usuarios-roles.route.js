@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const {   usuarioRolesGet,
+          usuarioRolesGetId,
           usuarioRolesPost,
           usuarioRolesPut,
           usuarioRolesDel} = require('../controllers/usuarios-roles.controller');
@@ -7,6 +8,8 @@ const {   usuarioRolesGet,
 const router = Router();
 
 router.get('/', usuarioRolesGet);
+
+router.get('/:id', usuarioRolesGetId);
 
 //metodo de creacion
 router.post('/', usuarioRolesPost);
