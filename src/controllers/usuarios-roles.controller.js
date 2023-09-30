@@ -33,9 +33,12 @@ const usuarioRolesGetId = async (req = request, res = response) => {
         
         const id = req.params.id;
         const queryUser = { usuario : id }
-        const userRoles = await UsuarioRoles.find(queryUser).populate('usuario').populate('role');
+        const userRoles = await UsuarioRoles.find(queryUser).populate({ path: 'usuario', select: ['_id','correo','nombres','apellidos','puesto']})
+                                                            .populate({ path: 'role', select: ['_id','nombre','descripcion']});
         const queryRole = { role : userRoles[0].role._id }
-        const rolesPermiso = await RolePermiso.find(queryRole).populate('permiso');
+        const rolesPermiso = await RolePermiso.find(queryRole)
+                                   .populate({ path:'permiso', select: ['_id','modulo','permiso', 'path','title', 'clas','icon','tipoPermiso']})
+                                   .select(['_id','role','permiso']);
 
         const respuest = {
             usuario: userRoles[0].usuario,

@@ -10,7 +10,16 @@ const PermisoSchema = Schema({
         type: String,
         required: [true, 'El tipo permiso es obligatorio']
     },
-    descripcion: {
+    path: {
+        type: String,
+    },
+    title: {
+        type: String
+    },
+    icon: {
+        type: String
+    },
+    clas : {
         type: String
     },
     estado: {
