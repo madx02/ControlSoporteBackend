@@ -71,7 +71,7 @@ const clientesPost = async (req = request, res = response) => {
         const  latidud  = location.coordinates[1];
         
 
-        const mapa = "https://waze.com/ul?ll=" + latidud +"," + longitud + "&z=10";
+        const mapa = "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s" + latidud +"," + longitud + "!6i17!3m1!1ses!5m1!1ses";
         
 
         const cliente = new Cliente({ idcliente, 
