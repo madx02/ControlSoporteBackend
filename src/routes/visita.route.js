@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {   visitaGet, visitaPost, visitaPut, visitaDel } = require('../controllers/visitas.controller');
+const {   visitaGet, visitaGetByUusario, visitaPost, visitaPut, visitaDel } = require('../controllers/visitas.controller');
 const { check } = require('express-validator');
 const { validarJWT }  = require('../middlewares/validarJWT')   
 
@@ -8,6 +8,10 @@ const router = Router();
 router.get('/', [
     validarJWT
 ], visitaGet);
+
+router.get('/:id', [
+    validarJWT
+], visitaGetByUusario);
 
 //metodo de creacion
 router.post('/', [

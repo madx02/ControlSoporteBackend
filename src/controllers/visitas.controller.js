@@ -34,6 +34,37 @@ const visitaGet = async (req = request, res = response) => {
     }
 }
 
+const visitaGetByUusario = async (req = request, res = response) => {
+    try {
+        
+        
+        const usuarioId = req.params.id;
+        const query = { estado : true, usuario : usuarioId };
+        const planneds = await Planned.find(query);
+        const ids = planneds.map(planned => planned._id);
+
+        const visitas = await Visita.find({
+            idPlanned: {
+              $in: ids
+            }
+          });
+
+          console.log(visitas);
+        res.status(200).json({
+            codigo: 0,
+            msg: 'Consulta realizada con exito',
+            planneds
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            codigo: 2,
+            msg: 'Error al obtener los datos',
+            error
+        });
+    }
+}
 
 const visitaPost = async (req = request, res = response) => {
     try {
@@ -160,6 +191,7 @@ const visitaDel = async (req = request, res = response) => {
 
 module.exports = {
     visitaGet,
+    visitaGetByUusario,
     visitaPost,
     visitaPut,
     visitaDel

@@ -25,6 +25,9 @@ const PlannedSchema = Schema({
     fecha_programada: {
         type: Date
     },
+    descripcion: {
+        type: String
+    },
     situacion: {
         type: String,
         default: "P"
