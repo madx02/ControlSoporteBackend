@@ -10,7 +10,8 @@ const plannedGet = async (req = request, res = response) => {
 
         const [totalRegistros, datos] = await Promise.all([
             Planned.countDocuments(query),
-            Planned.find(query)
+            Planned.find(query).populate({ path: 'cliente', select: ['nombreComercial','mapa'] })
+                               .populate({ path: 'usuario', select: ['_id', 'nombres','apellidos']})
         ])
 
         res.status(200).json({
@@ -35,7 +36,8 @@ const plannedGetByUsuario = async (req = request, res = response) => {
         const usuarioId = req.params.id;
         const query = { estado: true, usuario : usuarioId };
 
-        const datos = await Planned.find(query).populate({ path: 'cliente', select: ['nombreComercial','mapa'] });
+        const datos = await Planned.find(query).populate({ path: 'cliente', select: ['nombreComercial','mapa'] })
+                                               .populate({ path: 'usuario', select: ['_id', 'nombres','apellidos']});
 
         res.status(200).json({
             codigo: 0,
