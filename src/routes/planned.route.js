@@ -15,7 +15,7 @@ router.get('/:id', [
 
 //metodo de creacion
 router.post('/', [
-    //validarJWT,
+    validarJWT,
     check('cliente', 'El cliente es obligatorio').not().isEmpty(),
     check('usuario', 'El usuario es obligatorio').not().isEmpty(),
     check('fecha_programada','La fecha de programacion es obligatoria').isDate()
