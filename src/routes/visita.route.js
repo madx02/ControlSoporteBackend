@@ -21,7 +21,7 @@ router.post('/', [
 
 //metodo de actualizacion
 router.put('/:id', [
-    //validarJWT
+    validarJWT
 ], visitaPut);
 
 
