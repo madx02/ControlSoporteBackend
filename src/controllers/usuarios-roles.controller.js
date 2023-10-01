@@ -52,6 +52,7 @@ const usuarioRolesGetId = async (req = request, res = response) => {
             respuest
         });
     } catch (error) {
+        console.log(error);
         res.status(500).json({
             codigo: 2,
             msg: 'Error al obtener los datos',

@@ -42,22 +42,20 @@ const visitaGetByUusario = async (req = request, res = response) => {
         const query = { estado : true, usuario : usuarioId };
         const planneds = await Planned.find(query);
         const ids = planneds.map(planned => planned._id);
-
         const visitas = await Visita.find({
-            idPlanned: {
+            planned: {
               $in: ids
             }
           });
 
-          console.log(visitas);
+        
         res.status(200).json({
             codigo: 0,
             msg: 'Consulta realizada con exito',
-            planneds
+            visitas
         });
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({
             codigo: 2,
             msg: 'Error al obtener los datos',

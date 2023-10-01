@@ -6,11 +6,11 @@ const { validarJWT }  = require('../middlewares/validarJWT')
 const router = Router();
 
 router.get('/', [
-    //validarJWT
+     validarJWT
 ], plannedGet);
 
 router.get('/:id', [
-    //validarJWT
+    validarJWT
 ], plannedGetByUsuario);
 
 //metodo de creacion
