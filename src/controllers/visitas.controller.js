@@ -126,6 +126,16 @@ const visitaPost = async (req = request, res = response) => {
         // Guardar en BD
         await dato.save();
 
+        if (dato) {
+            await Planned.findByIdAndUpdate(planned, { 'situacion': 'E' })
+            .then(updatedDocument => {
+                console.log(`Documento actualizado: ${updatedDocument}`);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        }
+
         res.status(200).json({
             codigo: 0,
             msg: 'Visita creada con exito',
@@ -151,6 +161,15 @@ const visitaPut = async (req = request, res = response) => {
 
         const dato = await Visita.findByIdAndUpdate(id, resto);
 
+        if (dato.situacion === 'F') {
+            await Planned.findByIdAndUpdate(dato.planned, { 'situacion': 'F' })
+            .then(updatedDocument => {
+                console.log(`Documento actualizado: ${updatedDocument}`);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+        }
         res.status(200).json({
             codigo: 0,
             msg: 'Se guardaron los cambios',

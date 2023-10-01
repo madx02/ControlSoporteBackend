@@ -10,7 +10,7 @@ router.get('/', [
 ], visitaGet);
 
 router.get('/:id', [
-    validarJWT
+    //validarJWT
 ], visitaGetByUusario);
 
 //metodo de creacion
