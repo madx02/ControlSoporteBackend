@@ -160,8 +160,8 @@ const visitaPut = async (req = request, res = response) => {
         const { _id, ...resto } = req.body;
 
         const dato = await Visita.findByIdAndUpdate(id, resto);
-        console.log(dato.situacion);
-        if (dato.situacion == 'F') {
+
+        if (resto.situacion == 'F') {
             await Planned.findByIdAndUpdate(dato.planned, { 'situacion': 'F' })
             .then(updatedDocument => {
                 console.log(`Documento actualizado: ${updatedDocument}`);
