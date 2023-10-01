@@ -33,8 +33,8 @@ const permisosPost = async (req = request, res = response) => {
             timeZone: process.env.TZ
         });
 
-        const { modulo, tipoPermiso, path,  title, icon, clas, estado = true, creado_el = nDate, creado_por, modificado_el = nDate, modificado_por } = req.body;
-        const dato = new Permiso({ modulo, tipoPermiso,  path,  title, icon, clas,  estado, creado_el, creado_por, modificado_el, modificado_por});
+        const { modulo, tipoPermiso,  descripcion,  estado = true, creado_el = nDate, creado_por, modificado_el = nDate, modificado_por } = req.body;
+        const dato = new Permiso({ modulo, tipoPermiso,  descripcion,  estado, creado_el, creado_por, modificado_el, modificado_por});
 
         // Guardar en BD
         await dato.save();
@@ -56,7 +56,7 @@ const permisosPost = async (req = request, res = response) => {
 const permisosPut = async (req = request, res = response) => {
     try {
         const id = req.params.id;
-        const { _id, estado, ...resto } = req.body;
+        const { _id, modulo, tipoPermiso,  descripcion, ...resto } = req.body;
 
         const dato = await Permiso.findByIdAndUpdate(id, resto);
 

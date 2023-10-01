@@ -1,5 +1,4 @@
 const { response } = require('express');
-const { isValidObjectId, Mongoose } = require('mongoose');
 const Cliente = require('../models/cliente');
 
 
